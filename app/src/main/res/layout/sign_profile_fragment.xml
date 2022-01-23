@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical"
+    tools:context=".fragment.SignProfileFragment">
+
+    <LinearLayout
+        android:id="@+id/sign_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginVertical="20dp"
+            android:src="@drawable/img_sign_profile" />
+
+        <LinearLayout
+            android:id="@+id/sign_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="30dp"
+            android:background="@drawable/border_sign"
+            android:orientation="vertical"
+            android:paddingVertical="10dp">
+
+            <EditText
+                android:id="@+id/sign_email"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/border_login"
+                android:hint="휴대폰 번호 또는 이메일 주소"
+                android:padding="10dp"
+                android:textSize="14dp" />
+
+            <EditText
+                android:id="@+id/sign_name"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/border_login"
+                android:hint="성명"
+                android:padding="10dp"
+                android:textSize="14dp" />
+
+            <EditText
+                android:id="@+id/sign_username"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/border_login"
+                android:hint="사용자 이름"
+                android:padding="10dp"
+                android:textSize="14dp" />
+
+            <EditText
+                android:id="@+id/sign_pw"
+                android:inputType="textPassword"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/border_login"
+                android:hint="비밀번호"
+                android:padding="10dp"
+                android:textSize="14dp" />
+
+            <Button
+                android:id="@+id/sign_next_btn"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/border_login_btn"
+                android:text="다음" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sign_login_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/border_sign_layout"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="이미 계정이 있으신가요?"
+            android:textColor="#AAA7A7"
+            android:textSize="11dp" />
+
+        <Button
+            android:id="@+id/sign_login_button"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/black"
+            android:padding="0dp"
+            android:text="로그인."
+            android:textColor="#B5D6ED"
+            android:textSize="11dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
