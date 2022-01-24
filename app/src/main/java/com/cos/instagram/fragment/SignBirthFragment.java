@@ -1,30 +1,45 @@
 package com.cos.instagram.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.cos.instagram.R;
+import com.cos.instagram.SignActivity;
+import com.cos.instagram.model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.BreakIterator;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class SignBirthFragment extends Fragment implements View.OnClickListener {
 
-    private SignViewModel mViewModel;
+    private SignViewModel model;
 
     private SignAgreeFragment agreeFragment = new SignAgreeFragment();
 
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore mStore = FirebaseFirestore.getInstance();
+
     private TextView mDate, mAge;
     private DatePicker mDate_input;
+
+    private Context context;
+
+    private User user;
 
     private long now;
     private Date year;
@@ -50,8 +65,6 @@ public class SignBirthFragment extends Fragment implements View.OnClickListener 
             }
         });
 
-        view.findViewById(R.id.birth_next_btn).setOnClickListener(this);
-
         transaction.commit();
 
         return view;
@@ -60,8 +73,25 @@ public class SignBirthFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+        user.setBirth(mDate.getText().toString());
+        model.select(user);
+
         transaction.replace(R.id.sign_frame, agreeFragment);
         transaction.commit();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        model = new ViewModelProvider(requireActivity()).get(SignViewModel.class);
+        view.findViewById(R.id.birth_next_btn).setOnClickListener(this);
+
+        model.getSelected().observe(getViewLifecycleOwner(), u -> {
+            user = u;
+
+
+        });
     }
 
     private int getTime(){

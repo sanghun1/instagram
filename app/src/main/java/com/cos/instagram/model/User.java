@@ -10,6 +10,7 @@ public class User {
     private String name;
     private String username;
     private String password;
+    private String birth;
 
     @ServerTimestamp
     private Date date;
@@ -18,11 +19,12 @@ public class User {
 
     }
 
-    public User(String email, String name, String username, String password, Date date) {
+    public User(String email, String name, String username, String password, String birth, Date date) {
         this.email = email;
         this.name = name;
         this.username = username;
         this.password = password;
+        this.birth = birth;
         this.date = date;
     }
 
@@ -58,6 +60,14 @@ public class User {
         this.password = password;
     }
 
+    public String getBirth() {
+        return birth;
+    }
+
+    public void setBirth(String birth) {
+        this.birth = birth;
+    }
+
     public Date getDate() {
         return date;
     }
@@ -73,6 +83,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", birth='" + birth + '\'' +
                 ", date=" + date +
                 '}';
     }

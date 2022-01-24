@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.cos.instagram.R;
 import com.cos.instagram.model.FirebaseID;
+import com.cos.instagram.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -35,18 +36,23 @@ import java.util.concurrent.Executor;
 public class SignProfileFragment extends Fragment implements View.OnClickListener {
 
     public static String TAG = "SignProfileFragment : ";
+    public static Context context_sign;
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore mStore = FirebaseFirestore.getInstance();
 
-    private SignViewModel mViewModel;
+    private SignViewModel model;
 
     private SignBirthFragment birthFragment = new SignBirthFragment();
     private SignAgreeFragment agreeFragment = new SignAgreeFragment();
 
-    private EditText mEmail, mName, mUsername, mPassword;
+    private EditText mName, mUsername;
+    public EditText mEmail_edit, mPassword_edit;
 
     private Context context;
+
+
+    public Map<String, Object> userMap = new HashMap<>();
 
     public static SignProfileFragment newInstance() {
         return new SignProfileFragment();
@@ -58,49 +64,44 @@ public class SignProfileFragment extends Fragment implements View.OnClickListene
 
         context = container.getContext();
 
-        mEmail = view.findViewById(R.id.sign_email);
+        mEmail_edit = view.findViewById(R.id.sign_email);
         mName = view.findViewById(R.id.sign_name);
         mUsername = view.findViewById(R.id.sign_username);
-        mPassword = view.findViewById(R.id.sign_pw);
+        mPassword_edit = view.findViewById(R.id.sign_pw);
 
-        view.findViewById(R.id.sign_next_btn).setOnClickListener(this);
 
         return view;
     }
 
     @Override
     public void onClick(View view) {
-        if (!mEmail.getText().toString().equals("") || !mPassword.getText().toString().equals("") || !mUsername.getText().toString().equals("") || !mName.getText().toString().equals("")) {
-            mAuth.createUserWithEmailAndPassword(mEmail.getText().toString(), mPassword.getText().toString())
-                    .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            if (task.isSuccessful()) {
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                if (user != null) {
-                                    Map<String, Object> userMap = new HashMap<>();
-                                    userMap.put(FirebaseID.documentId, user.getUid());
-                                    userMap.put(FirebaseID.email, mEmail.getText().toString());
-                                    userMap.put(FirebaseID.name, mName.getText().toString());
-                                    userMap.put(FirebaseID.username, mUsername.getText().toString());
-                                    userMap.put(FirebaseID.password, mPassword.getText().toString());
-                                    mStore.collection(FirebaseID.user).document(user.getUid()).set(userMap, SetOptions.merge());
 
-                                    Toast.makeText(context, "성공", Toast.LENGTH_SHORT).show();
-                                    transaction.replace(R.id.sign_frame, birthFragment);
-                                    transaction.commit();
-                                }
-                            }
-                            else {
-                                Toast.makeText(context, task.getException().toString(), Toast.LENGTH_SHORT).show();
-                            }
+        if (!mEmail_edit.getText().toString().equals("") || !mPassword_edit.getText().toString().equals("") || !mUsername.getText().toString().equals("") || !mName.getText().toString().equals("")) {
 
-                        }
-                    });
         } else {
             Toast.makeText(context, "에러", Toast.LENGTH_SHORT).show();
         }
+        User inputUser = new User();
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 
+
+        inputUser.setEmail(mEmail_edit.getText().toString());
+        inputUser.setName(mName.getText().toString());
+        inputUser.setUsername(mUsername.getText().toString());
+        inputUser.setPassword(mPassword_edit.getText().toString());
+        model.select(inputUser);
+
+        Toast.makeText(context, "성공", Toast.LENGTH_SHORT).show();
+
+        transaction.replace(R.id.sign_frame, birthFragment);
+        transaction.commit();
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        model = new ViewModelProvider(requireActivity()).get(SignViewModel.class);
+        view.findViewById(R.id.sign_next_btn).setOnClickListener(this);
     }
 }
