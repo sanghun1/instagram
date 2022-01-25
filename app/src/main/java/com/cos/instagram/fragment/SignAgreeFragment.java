@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.cos.instagram.LoginActivity;
 import com.cos.instagram.MainActivity;
 import com.cos.instagram.R;
 import com.cos.instagram.model.FirebaseID;
@@ -176,7 +177,7 @@ public class SignAgreeFragment extends Fragment {
                 }
 
 
-                startActivity(new Intent(getActivity().getApplication(), MainActivity.class));
+                startActivity(new Intent(getActivity().getApplication(), LoginActivity.class));
                 getActivity().finish();
             }
         });
