@@ -27,8 +27,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignAgreeFragment extends Fragment {
 
@@ -49,6 +55,11 @@ public class SignAgreeFragment extends Fragment {
     private User user;
 
     private Context context;
+
+    private long now = System.currentTimeMillis();
+
+    private Date date = new Date(now);
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -163,9 +174,22 @@ public class SignAgreeFragment extends Fragment {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                    FirebaseUser fbUser = mAuth.getCurrentUser();
                                     if (task.isSuccessful()) {
-                                        mStore.collection(FirebaseID.user).document().set(user, SetOptions.merge());
+                                        Map<String, Object> userMap = new HashMap<>();
+                                        userMap.put(FirebaseID.documentId, fbUser.getUid());
+                                        userMap.put(FirebaseID.username, user.getUsername());
+                                        userMap.put(FirebaseID.email, user.getEmail());
+                                        userMap.put(FirebaseID.name, user.getName());
+                                        userMap.put(FirebaseID.password, user.getPassword());
+                                        userMap.put(FirebaseID.birth, user.getBirth());
+                                        userMap.put(FirebaseID.date, sdf.format(date));
+                                        mStore.collection(FirebaseID.user).document(fbUser.getUid()).set(userMap, SetOptions.merge());
 
+
+                                        startActivity(new Intent(getActivity().getBaseContext(), LoginActivity.class));
+                                        getActivity().finish();
+//                                        Toast.makeText(context, user.getUsername(), Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(context, task.getException().toString(), Toast.LENGTH_SHORT).show();
                                     }
@@ -177,8 +201,7 @@ public class SignAgreeFragment extends Fragment {
                 }
 
 
-                startActivity(new Intent(getActivity().getApplication(), LoginActivity.class));
-                getActivity().finish();
+
             }
         });
 

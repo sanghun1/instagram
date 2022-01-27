@@ -2,9 +2,12 @@ package com.cos.instagram.model;
 
 import com.google.firebase.firestore.ServerTimestamp;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String email;
     private String name;
@@ -12,14 +15,13 @@ public class User {
     private String password;
     private String birth;
 
-    @ServerTimestamp
-    private Date date;
+    private String date;
 
     public User(){
 
     }
 
-    public User(String email, String name, String username, String password, String birth, Date date) {
+    public User(String email, String name, String username, String password, String birth, String date) {
         this.email = email;
         this.name = name;
         this.username = username;
@@ -68,11 +70,11 @@ public class User {
         this.birth = birth;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

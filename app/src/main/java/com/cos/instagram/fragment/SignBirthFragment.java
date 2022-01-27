@@ -51,6 +51,7 @@ public class SignBirthFragment extends Fragment implements View.OnClickListener 
         View view = inflater.inflate(R.layout.sign_birth_fragment, container, false);
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        context = container.getContext();
 
         mDate = (TextView) view.findViewById(R.id.birth_date_tv);
         mAge = (TextView) view.findViewById(R.id.birth_age_tv);
@@ -76,6 +77,8 @@ public class SignBirthFragment extends Fragment implements View.OnClickListener 
 
         user.setBirth(mDate.getText().toString());
         model.select(user);
+
+//        Toast.makeText(context, model.getSelected().getValue().getBirth(), Toast.LENGTH_SHORT).show();
 
         transaction.replace(R.id.sign_frame, agreeFragment);
         transaction.commit();

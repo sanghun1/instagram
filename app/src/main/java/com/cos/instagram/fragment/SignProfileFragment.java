@@ -84,14 +84,13 @@ public class SignProfileFragment extends Fragment implements View.OnClickListene
         User inputUser = new User();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 
-
         inputUser.setEmail(mEmail_edit.getText().toString());
         inputUser.setName(mName.getText().toString());
         inputUser.setUsername(mUsername.getText().toString());
         inputUser.setPassword(mPassword_edit.getText().toString());
         model.select(inputUser);
 
-        Toast.makeText(context, "성공", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, model.getSelected().getValue().toString(), Toast.LENGTH_SHORT).show();
 
         transaction.replace(R.id.sign_frame, birthFragment);
         transaction.commit();
