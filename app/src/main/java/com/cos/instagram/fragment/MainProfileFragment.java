@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.cos.instagram.MainActivity;
+import com.cos.instagram.ProfileActivity;
 import com.cos.instagram.R;
 import com.cos.instagram.model.FirebaseID;
 import com.cos.instagram.model.User;
@@ -41,6 +44,7 @@ public class MainProfileFragment extends Fragment {
 
     private ImageButton btn_home, btn_search, btn_play, btn_shop, btn_profile;
     private ImageButton profile_plus_btn;
+    private Button profile_edit_btn;
 
     private SlidingUpPanelLayout slide_layout;
 
@@ -65,6 +69,8 @@ public class MainProfileFragment extends Fragment {
         MainShopFragment shopFragment = new MainShopFragment();
         MainProfileFragment profileFragment = new MainProfileFragment();
 
+        slide_layout = (SlidingUpPanelLayout) view.findViewById(R.id.slide_layout);
+
         profile_id = (TextView) view.findViewById(R.id.profile_id);
         profile_name_tv = (TextView) view.findViewById(R.id.profile_name_tv);
 
@@ -75,7 +81,7 @@ public class MainProfileFragment extends Fragment {
         btn_profile = (ImageButton) view.findViewById(R.id.btn_profile);
 
         profile_plus_btn = (ImageButton) view.findViewById(R.id.profile_plus_btn);
-        slide_layout = (SlidingUpPanelLayout)view.findViewById(R.id.slide_layout);
+        profile_edit_btn = (Button) view.findViewById(R.id.profile_edit_btn);
 
         btn_home.setOnClickListener(View -> changeFragment(homeFragment));
         btn_search.setOnClickListener(View -> changeFragment(searchFragment));
@@ -83,12 +89,17 @@ public class MainProfileFragment extends Fragment {
         btn_shop.setOnClickListener(View -> changeFragment(shopFragment));
         btn_profile.setOnClickListener(View -> changeFragment(profileFragment));
 
-
-
         profile_plus_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 slide_layout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
+            }
+        });
+
+        profile_edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), ProfileActivity.class));
             }
         });
 

@@ -191,6 +191,7 @@
                     android:textSize="13dp" />
 
                 <Button
+                    android:id="@+id/profile_edit_btn"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:text="프로필 편집"

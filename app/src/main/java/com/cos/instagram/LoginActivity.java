@@ -71,17 +71,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 if (task.isSuccessful()) {
                                     FirebaseUser mUser = mAuth.getCurrentUser();
                                     if (mUser != null) {
-//                                        Toast.makeText(LoginActivity.this, "로그인 성공 : " + mUser.getUid(), Toast.LENGTH_SHORT).show();
-
-//                                        Intent intent = new Intent(getBaseContext(), MainActivity.class);
-//                                        Bundle bundle = mainIntent.getExtras();
-//
-//                                        String signEmail = bundle.getString("email");
-//                                        String signUsername = bundle.getString("username");
-//                                        String signName = bundle.getString("name");
-//                                        String signBirth = bundle.getString("birth");
-
-
                                         DocumentReference docRef = mStore.collection("user").document(mUser.getUid());
                                         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                             @Override
@@ -92,21 +81,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                                                 loginIntent.putExtra("user", user);
 
-
 //                                                Toast.makeText(LoginActivity.this, user.getUsername(), Toast.LENGTH_LONG).show();
 
                                                 startActivity(loginIntent);
 
                                             }
                                         });
-
-
-//                                        intent.putExtra("email", email);
-//                                        intent.putExtra("username", username);
-//                                        intent.putExtra("name", name);
-//                                        intent.putExtra("birth", birth);
-
-
                                     }
                                 } else {
                                     Toast.makeText(LoginActivity.this, "로그인 에러 ", Toast.LENGTH_SHORT).show();
