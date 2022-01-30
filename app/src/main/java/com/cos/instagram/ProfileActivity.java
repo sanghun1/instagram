@@ -13,10 +13,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cos.instagram.model.FirebaseID;
 import com.cos.instagram.model.User;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -44,7 +49,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         edit_number = (TextInputEditText) findViewById(R.id.profile_edit_number);
         edit_info = (TextInputEditText) findViewById(R.id.profile_edit_info);
 
-        edit_birth_tv.setText(user.getId());
+        edit_birth_tv.setText(user.getDocumentId());
         edit_name.setText(user.getName());
         edit_username.setText(user.getUsername());
 
@@ -54,15 +59,22 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.profile_edit_commit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(ProfileActivity.this, user.getId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, user.getDocumentId(), Toast.LENGTH_SHORT).show();
+                Map<String, Object> userMap = new HashMap<>();
+                userMap.put(FirebaseID.username, edit_username.getText());
+                userMap.put(FirebaseID.name, edit_name.getText());
+                userMap.put(FirebaseID.number, edit_number.getText());
+                userMap.put(FirebaseID.birth, edit_birth_tv.getText());
 
-//                mStore.collection("user").document(user.getId())
-//                        .update(
-//                                "username",edit_username.getText(),
-//                                "name",edit_name.getText(),
-//                                "number",edit_number.getText(),
-//                                "info",edit_info.getText()
-//                        );
+                user.setUsername(edit_username.getText().toString());
+                user.setName(edit_name.getText().toString());
+                user.setNumber(edit_number.getText().toString());
+                user.setBirth(edit_birth_tv.getText().toString());
+
+                Toast.makeText(ProfileActivity.this, user.getUsername(), Toast.LENGTH_SHORT).show();
+
+                mStore.collection(FirebaseID.user).document(user.getDocumentId()).update(userMap);
+
 //                finish();
             }
         });
