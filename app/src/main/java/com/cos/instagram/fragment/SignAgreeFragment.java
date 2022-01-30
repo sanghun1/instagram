@@ -185,8 +185,7 @@ public class SignAgreeFragment extends Fragment {
                                         userMap.put(FirebaseID.birth, user.getBirth());
                                         userMap.put(FirebaseID.date, sdf.format(date));
                                         mStore.collection(FirebaseID.user).document(fbUser.getUid()).set(userMap, SetOptions.merge());
-
-
+                                        user.setId(fbUser.getUid());
                                         startActivity(new Intent(getActivity().getBaseContext(), LoginActivity.class));
                                         getActivity().finish();
 //                                        Toast.makeText(context, user.getUsername(), Toast.LENGTH_SHORT).show();

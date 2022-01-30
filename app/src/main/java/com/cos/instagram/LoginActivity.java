@@ -79,7 +79,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                 Intent loginIntent = new Intent(getBaseContext(), MainActivity.class);
 
                                                 loginIntent.putExtra("user", user);
-                                                startActivity(loginIntent);
+
+                                                Toast.makeText(LoginActivity.this, user.toString(), Toast.LENGTH_SHORT).show();
+//                                                startActivity(loginIntent);
 
                                             }
                                         });
