@@ -37,7 +37,7 @@ public class SignBirthFragment extends Fragment implements View.OnClickListener 
     private TextView mDate, mAge;
     private DatePicker mDate_input;
 
-    private Context context;
+    public static Context context;
 
     private User user;
 
@@ -50,8 +50,9 @@ public class SignBirthFragment extends Fragment implements View.OnClickListener 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sign_birth_fragment, container, false);
 
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         context = container.getContext();
+
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 
         mDate = (TextView) view.findViewById(R.id.birth_date_tv);
         mAge = (TextView) view.findViewById(R.id.birth_age_tv);
@@ -62,7 +63,7 @@ public class SignBirthFragment extends Fragment implements View.OnClickListener 
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 mDate.setText(String.format("%d년 %d월 %d일", year,monthOfYear + 1 , dayOfMonth));
-                mAge.setText(Integer.toString(getTime() - year));
+                mAge.setText(Integer.toString(((SignActivity)getActivity()).getTime() - year));
             }
         });
 
@@ -97,10 +98,10 @@ public class SignBirthFragment extends Fragment implements View.OnClickListener 
         });
     }
 
-    private int getTime(){
-        now = System.currentTimeMillis();
-        year = new Date(now);
-        nYear = Integer.parseInt(mFormat.format(year));
-        return nYear;
-    }
+//    public int getTime(){
+//        now = System.currentTimeMillis();
+//        year = new Date(now);
+//        nYear = Integer.parseInt(mFormat.format(year));
+//        return nYear;
+//    }
 }

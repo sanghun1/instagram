@@ -11,5 +11,7 @@ public class FirebaseID {
     public static String username = "username";
     public static String password = "password";
     public static String birth = "birth";
+    public static String number = "number";
+    public static String info = "info";
     public static String date = "date";
 }

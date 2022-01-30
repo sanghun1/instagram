@@ -96,12 +96,7 @@ public class MainProfileFragment extends Fragment {
             }
         });
 
-        profile_edit_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), ProfileActivity.class));
-            }
-        });
+
 
         return view;
     }
@@ -124,9 +119,15 @@ public class MainProfileFragment extends Fragment {
             user = u;
 
         });
+        Intent profileIntent = new Intent(getActivity(), ProfileActivity.class);
+        profileIntent.putExtra("user", user);
 
+        profile_edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(profileIntent);
+            }
+        });
 
     }
-
-
 }

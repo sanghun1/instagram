@@ -15,6 +15,7 @@
         android:layout_margin="10dp">
 
         <Button
+            android:id="@+id/profile_edit_exit"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/icon_insta_x" />
@@ -30,6 +31,7 @@
             android:layout_marginHorizontal="25dp"/>
 
         <Button
+            android:id="@+id/profile_edit_commit"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/icon_insta_check_blue" />
@@ -63,16 +65,14 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/post_reply_content_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:hintTextColor="#505050"
             app:boxBackgroundColor="#fbfafb"
-            android:layout_marginTop="10dp"
-            >
+            android:layout_marginTop="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/post_reply_content"
+                android:id="@+id/profile_edit_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="이름"
@@ -85,9 +85,10 @@
             android:layout_height="wrap_content"
             app:hintTextColor="#505050"
             app:boxBackgroundColor="#fbfafb"
-            android:layout_marginTop="10dp"            >
+            android:layout_marginTop="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/profile_edit_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="사용자 이름"
@@ -100,9 +101,10 @@
             android:layout_height="wrap_content"
             app:hintTextColor="#505050"
             app:boxBackgroundColor="#fbfafb"
-            android:layout_marginTop="10dp"            >
+            android:layout_marginTop="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/profile_edit_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="전화번호"
@@ -115,9 +117,10 @@
             android:layout_height="wrap_content"
             app:hintTextColor="#505050"
             app:boxBackgroundColor="#fbfafb"
-            android:layout_marginTop="10dp"            >
+            android:layout_marginTop="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/profile_edit_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="소개"
@@ -141,6 +144,7 @@
                 android:layout_marginVertical="8dp"/>
 
             <TextView
+                android:id="@+id/profile_edit_birth_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="생일"

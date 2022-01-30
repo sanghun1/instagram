@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="265dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/border_dialog_radius"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="생일을 확인하세요"
+        android:textSize="20dp"
+        android:textColor="#fbfafb"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="2dp"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/dialog_birth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0000년 0월 0일"
+            android:textColor="#969696"
+            android:textSize="14dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이 회원님의"
+            android:textColor="#969696"
+            android:textSize="14dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="생일인가요?"
+        android:textColor="#969696"
+        android:textSize="14dp"
+        android:layout_marginBottom="30dp"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:id="@+id/dialog_commit_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_dialog_btn"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="확인"
+            android:textSize="17dp"
+            android:textColor="#0893F0"
+            android:layout_margin="13dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dialog_cancel_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수정"
+            android:textSize="17dp"
+            android:textColor="#fbfafb"
+            android:layout_margin="13dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

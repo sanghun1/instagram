@@ -76,13 +76,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                             @Override
                                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                                 User user = documentSnapshot.toObject(User.class);
-
                                                 Intent loginIntent = new Intent(getBaseContext(), MainActivity.class);
 
                                                 loginIntent.putExtra("user", user);
-
-//                                                Toast.makeText(LoginActivity.this, user.getUsername(), Toast.LENGTH_LONG).show();
-
                                                 startActivity(loginIntent);
 
                                             }

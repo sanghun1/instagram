@@ -14,6 +14,8 @@ public class User implements Serializable {
     private String username;
     private String password;
     private String birth;
+    private String number;
+    private String info;
 
     private String date;
 
@@ -21,14 +23,17 @@ public class User implements Serializable {
 
     }
 
-    public User(String email, String name, String username, String password, String birth, String date) {
+    public User(String email, String name, String username, String password, String birth, String number, String info, String date) {
         this.email = email;
         this.name = name;
         this.username = username;
         this.password = password;
         this.birth = birth;
+        this.number = number;
+        this.info = info;
         this.date = date;
     }
+
 
     public String getEmail() {
         return email;
@@ -70,6 +75,22 @@ public class User implements Serializable {
         this.birth = birth;
     }
 
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
     public String getDate() {
         return date;
     }
@@ -86,7 +107,9 @@ public class User implements Serializable {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", birth='" + birth + '\'' +
-                ", date=" + date +
+                ", number='" + number + '\'' +
+                ", info='" + info + '\'' +
+                ", date='" + date + '\'' +
                 '}';
     }
 }
