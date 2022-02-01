@@ -7,12 +7,14 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import com.cos.instagram.fragment.MainHomeFragment;
+import com.cos.instagram.fragment.MainProfileFragment;
 import com.cos.instagram.fragment.MainViewModel;
 import com.cos.instagram.fragment.SignViewModel;
 import com.cos.instagram.model.User;
@@ -21,25 +23,36 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity1";
 
+    private User user;
+    private FragmentTransaction transaction;
     private MainViewModel model;
+
+    public static Context mainContext;
+    public int moveNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mainContext = this;
 
-        Intent intent = getIntent();
-        User user = (User) intent.getSerializableExtra("user");
+        user = (User) getIntent().getSerializableExtra("user");
 
         model = new ViewModelProvider(this).get(MainViewModel.class);
         model.select(user);
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction = getSupportFragmentManager().beginTransaction();
         MainHomeFragment mainHomeFragment = new MainHomeFragment();
+        MainProfileFragment mainProfileFragment = new MainProfileFragment();
 
-        transaction.replace(R.id.main_frame, mainHomeFragment);
+        if(moveNum < 1){
+            transaction.replace(R.id.main_frame, mainHomeFragment);
+        }
+        else{
+            transaction.replace(R.id.main_frame, mainProfileFragment);
+        }
         transaction.commit();
-    }
 
+    }
 
 }

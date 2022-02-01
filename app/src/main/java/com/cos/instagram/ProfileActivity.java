@@ -5,6 +5,7 @@ import static com.cos.instagram.model.FirebaseID.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,10 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cos.instagram.fragment.MainProfileFragment;
 import com.cos.instagram.model.FirebaseID;
 import com.cos.instagram.model.User;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -35,12 +40,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        Intent intent = getIntent();
-        User user = (User) intent.getSerializableExtra("user");
 
-        Intent birthIntent = new Intent(getBaseContext(), ProfileBirthActivity.class);
-        birthIntent.putExtra("user", user);
+        User user = (User) getIntent().getSerializableExtra("user");
 
+        Intent profileIntent = new Intent(getBaseContext(), ProfileBirthActivity.class);
+        profileIntent.putExtra("user", user);
+
+        Intent mainIntent = new Intent(getBaseContext(), MainActivity.class);
+        mainIntent.putExtra("user", user);
 
         edit_birth_tv = (TextView) findViewById(R.id.profile_edit_birth_tv);
 
@@ -49,9 +56,23 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         edit_number = (TextInputEditText) findViewById(R.id.profile_edit_number);
         edit_info = (TextInputEditText) findViewById(R.id.profile_edit_info);
 
-        edit_birth_tv.setText(user.getDocumentId());
         edit_name.setText(user.getName());
         edit_username.setText(user.getUsername());
+        edit_birth_tv.setText(user.getBirth());
+
+        if(user.getNumber() == null){
+            edit_number.setText("");
+        }
+        else{
+            edit_number.setText(user.getNumber());
+        }
+
+        if(user.getInfo() == null){
+            edit_info.setText("");
+        }
+        else{
+            edit_info.setText(user.getInfo());
+        }
 
         findViewById(R.id.profile_edit_exit).setOnClickListener(this);
         findViewById(R.id.profile_edit_commit).setOnClickListener(this);
@@ -59,23 +80,26 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.profile_edit_commit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ProfileActivity.this, user.getDocumentId(), Toast.LENGTH_SHORT).show();
-                Map<String, Object> userMap = new HashMap<>();
-                userMap.put(FirebaseID.username, edit_username.getText());
-                userMap.put(FirebaseID.name, edit_name.getText());
-                userMap.put(FirebaseID.number, edit_number.getText());
-                userMap.put(FirebaseID.birth, edit_birth_tv.getText());
+//                Toast.makeText(ProfileActivity.this, user.getDocumentId(), Toast.LENGTH_SHORT).show();
+                DocumentReference doc = mStore.collection(FirebaseID.user).document(user.getDocumentId());
 
                 user.setUsername(edit_username.getText().toString());
                 user.setName(edit_name.getText().toString());
                 user.setNumber(edit_number.getText().toString());
+                user.setInfo(edit_info.getText().toString());
                 user.setBirth(edit_birth_tv.getText().toString());
 
-                Toast.makeText(ProfileActivity.this, user.getUsername(), Toast.LENGTH_SHORT).show();
-
-                mStore.collection(FirebaseID.user).document(user.getDocumentId()).update(userMap);
-
-//                finish();
+                mStore.collection(FirebaseID.user).document(user.getDocumentId())
+                        .update(
+                                FirebaseID.username, edit_username.getText().toString(),
+                                FirebaseID.name, edit_name.getText().toString(),
+                                FirebaseID.number, edit_number.getText().toString(),
+                                FirebaseID.info, edit_info.getText().toString(),
+                                FirebaseID.birth, edit_birth_tv.getText().toString()
+                        );
+                ((MainActivity)MainActivity.mainContext).moveNum = 1;;
+                finish();
+                startActivity(mainIntent);
             }
         });
 
@@ -84,7 +108,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View view) {
 //                Toast.makeText(ProfileActivity.this, documentId, Toast.LENGTH_SHORT).show();
-//                startActivity(birthIntent);
+                startActivity(profileIntent);
             }
         });
 
@@ -98,9 +122,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.profile_edit_exit:
                 finish();
                 break;
-            case R.id.profile_edit_birth:
+//            case R.id.profile_edit_commit:
+//
+//                break;
+//            case R.id.profile_edit_birth:
 //                startActivity(birthIntent);
-                break;
+//                break;
         }
     }
 }

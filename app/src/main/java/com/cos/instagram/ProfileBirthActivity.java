@@ -34,14 +34,14 @@ public class ProfileBirthActivity extends AppCompatActivity implements View.OnCl
     private DatePicker birth_input;
 
     private String myBirth;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_birth);
 
-        Intent intent = getIntent();
-        User user = (User) intent.getSerializableExtra("user");
+        user = (User) getIntent().getSerializableExtra("user");
 
         birth_tv = (TextView) findViewById(R.id.profile_birth_tv);
         birth_tv.setText(user.getBirth());
@@ -95,6 +95,12 @@ public class ProfileBirthActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onClick(View view) {
                 Toast.makeText(ProfileBirthActivity.this, "체크 눌림 ", Toast.LENGTH_SHORT).show();
+                user.setBirth(myBirth);
+                Intent birthIntent = new Intent(getBaseContext(), ProfileActivity.class);
+                birthIntent.putExtra("user", user);
+
+                startActivity(birthIntent);
+                finish();
             }
         });
     }

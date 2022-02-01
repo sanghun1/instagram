@@ -40,7 +40,7 @@ public class MainProfileFragment extends Fragment {
 
     private User user;
 
-    private TextView profile_id, profile_name_tv;
+    private TextView profile_id, profile_name_tv, profile_intro_tv;
 
     private ImageButton btn_home, btn_search, btn_play, btn_shop, btn_profile;
     private ImageButton profile_plus_btn;
@@ -49,6 +49,8 @@ public class MainProfileFragment extends Fragment {
     private SlidingUpPanelLayout slide_layout;
 
     private Context context;
+
+    private FragmentTransaction transaction;
 
     private String username;
 
@@ -62,6 +64,8 @@ public class MainProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.main_profile_fragment, container, false);
 
         context = container.getContext();
+        transaction = getFragmentManager().beginTransaction();
+        transaction.detach(this).attach(this).commit();
 
         MainHomeFragment homeFragment = new MainHomeFragment();
         MainSearchFragment searchFragment = new MainSearchFragment();
@@ -73,6 +77,7 @@ public class MainProfileFragment extends Fragment {
 
         profile_id = (TextView) view.findViewById(R.id.profile_id);
         profile_name_tv = (TextView) view.findViewById(R.id.profile_name_tv);
+        profile_intro_tv = (TextView) view.findViewById(R.id.profile_intro_tv);
 
         btn_home = (ImageButton) view.findViewById(R.id.btn_home);
         btn_search = (ImageButton) view.findViewById(R.id.btn_search);
@@ -115,10 +120,17 @@ public class MainProfileFragment extends Fragment {
         user = model.user;
         profile_id.setText(user.getUsername());
         profile_name_tv.setText(user.getName());
+        if(user.getInfo() == null){
+            profile_intro_tv.setText("");
+        }
+        else{
+            profile_intro_tv.setText(user.getInfo());
+        }
         model.getSelected().observe(getViewLifecycleOwner(), u -> {
             user = u;
 
         });
+
         Intent profileIntent = new Intent(getActivity(), ProfileActivity.class);
         profileIntent.putExtra("user", user);
 
@@ -130,4 +142,5 @@ public class MainProfileFragment extends Fragment {
         });
 
     }
+
 }
