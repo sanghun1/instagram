@@ -41,11 +41,9 @@ public class MainProfileFragment extends Fragment {
     private User user;
 
     private TextView profile_id, profile_name_tv, profile_intro_tv;
-
     private ImageButton btn_home, btn_search, btn_play, btn_shop, btn_profile;
     private ImageButton profile_plus_btn;
     private Button profile_edit_btn;
-
     private SlidingUpPanelLayout slide_layout;
 
     private Context context;

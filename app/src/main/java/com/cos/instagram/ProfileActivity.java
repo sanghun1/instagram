@@ -24,6 +24,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,9 +33,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private FirebaseFirestore mStore = FirebaseFirestore.getInstance();
 
-    private LinearLayout profile_edit_birth;
+    private LinearLayout profile_edit_birth, profile_layout;
     private TextInputEditText edit_name, edit_username, edit_number, edit_info;
     private TextView edit_birth_tv;
+    private SlidingUpPanelLayout slide_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         edit_number = (TextInputEditText) findViewById(R.id.profile_edit_number);
         edit_info = (TextInputEditText) findViewById(R.id.profile_edit_info);
 
+        slide_layout = (SlidingUpPanelLayout) findViewById(R.id.profile_slide_layout);
+
         edit_name.setText(user.getName());
         edit_username.setText(user.getUsername());
         edit_birth_tv.setText(user.getBirth());
@@ -75,7 +79,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
 
         findViewById(R.id.profile_edit_exit).setOnClickListener(this);
-        findViewById(R.id.profile_edit_commit).setOnClickListener(this);
+        findViewById(R.id.profile_layout).setOnClickListener(this);
+        findViewById(R.id.profile_img_change).setOnClickListener(this);
 
         findViewById(R.id.profile_edit_commit).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,12 +127,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.profile_edit_exit:
                 finish();
                 break;
-//            case R.id.profile_edit_commit:
-//
-//                break;
-//            case R.id.profile_edit_birth:
-//                startActivity(birthIntent);
-//                break;
+            case R.id.profile_layout:
+                slide_layout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
+                break;
+            case R.id.profile_img_change:
+                startActivity(new Intent(getBaseContext(), ProfileImgActivity.class));
+                break;
+
         }
     }
 }
