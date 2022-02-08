@@ -4,9 +4,13 @@ import static com.cos.instagram.model.FirebaseID.documentId;
 import static com.cos.instagram.model.FirebaseID.user;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -64,17 +68,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         edit_username.setText(user.getUsername());
         edit_birth_tv.setText(user.getBirth());
 
-        if(user.getNumber() == null){
+        if (user.getNumber() == null) {
             edit_number.setText("");
-        }
-        else{
+        } else {
             edit_number.setText(user.getNumber());
         }
 
-        if(user.getInfo() == null){
+        if (user.getInfo() == null) {
             edit_info.setText("");
-        }
-        else{
+        } else {
             edit_info.setText(user.getInfo());
         }
 
@@ -102,7 +104,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                                 FirebaseID.info, edit_info.getText().toString(),
                                 FirebaseID.birth, edit_birth_tv.getText().toString()
                         );
-                ((MainActivity)MainActivity.mainContext).moveNum = 1;;
+                ((MainActivity) MainActivity.mainContext).moveNum = 1;
+                ;
                 finish();
                 startActivity(mainIntent);
             }
@@ -131,9 +134,24 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 slide_layout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
                 break;
             case R.id.profile_img_change:
-                startActivity(new Intent(getBaseContext(), ProfileImgActivity.class));
+
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                    } else {
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                        Toast.makeText(this, "권한 허용", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    myStartActivity(ProfileImgActivity.class);
+                }
                 break;
 
         }
+    }
+
+    private void myStartActivity(Class c) {
+        Intent intent = new Intent(this, c);
+        startActivityForResult(intent, 0);
     }
 }

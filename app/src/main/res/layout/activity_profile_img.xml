@@ -16,7 +16,7 @@
         android:layout_margin="10dp">
 
         <Button
-            android:id="@+id/profile_edit_exit"
+            android:id="@+id/gallery_exit"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/icon_insta_x" />
@@ -32,7 +32,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/pr"
+            android:id="@+id/gallery_commit"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/icon_insta_left" />
@@ -41,18 +41,17 @@
 
 
     <ImageView
-        android:id="@+id/iv"
+        android:id="@+id/gallery_iv"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/g_view"
+        android:id="@+id/gallery_view"
         android:stackFromBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".GFragment">
+        android:layout_height="match_parent">
     </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>
