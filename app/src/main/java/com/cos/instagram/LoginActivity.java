@@ -63,7 +63,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.login_btn:
-
                 mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -81,7 +80,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 //                                                Toast.makeText(LoginActivity.this, user.toString(), Toast.LENGTH_SHORT).show();
                                                 startActivity(loginIntent);
-
                                             }
                                         });
                                     }
