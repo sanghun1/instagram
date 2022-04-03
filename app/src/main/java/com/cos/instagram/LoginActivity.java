@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 
 import com.cos.instagram.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         email = findViewById(R.id.login_id);
         password = findViewById(R.id.login_pw);
 
+
         findViewById(R.id.login_btn).setOnClickListener(this);
         findViewById(R.id.login_sign_button).setOnClickListener(this);
 
@@ -63,31 +66,35 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.login_btn:
-                mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    FirebaseUser mUser = mAuth.getCurrentUser();
-                                    if (mUser != null) {
-                                        DocumentReference docRef = mStore.collection("user").document(mUser.getUid());
-                                        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                User user = documentSnapshot.toObject(User.class);
-                                                Intent loginIntent = new Intent(getBaseContext(), MainActivity.class);
-                                                loginIntent.putExtra("user", user);
+                try {
+                    mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        FirebaseUser mUser = mAuth.getCurrentUser();
+                                        if (mUser != null) {
+                                            DocumentReference docRef = mStore.collection("user").document(mUser.getUid());
+                                            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                    User user = documentSnapshot.toObject(User.class);
+                                                    Intent loginIntent = new Intent(getBaseContext(), MainActivity.class);
+                                                    loginIntent.putExtra("user", user);
 
 //                                                Toast.makeText(LoginActivity.this, user.toString(), Toast.LENGTH_SHORT).show();
-                                                startActivity(loginIntent);
-                                            }
-                                        });
+                                                    startActivity(loginIntent);
+                                                }
+                                            });
+                                        }
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "이메일과 비밀번호를 다시 확인해주세요. ", Toast.LENGTH_SHORT).show();
                                     }
-                                } else {
-                                    Toast.makeText(LoginActivity.this, "로그인 에러 ", Toast.LENGTH_SHORT).show();
                                 }
-                            }
-                        });
+                            });
+                } catch (IllegalArgumentException e) {
+                    Toast.makeText(LoginActivity.this, "아이디와 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }

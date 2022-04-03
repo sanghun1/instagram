@@ -29,7 +29,7 @@
             android:layout_gravity="center"
             android:layout_marginVertical="10dp"
             android:background="@drawable/border_login"
-            android:hint="전화번호, 이메일 주소 또는 사용자 이름"
+            android:hint="이메일"
             android:padding="10dp"
             android:textSize="14dp" />
 
@@ -42,7 +42,8 @@
             android:background="@drawable/border_login"
             android:hint="비밀번호"
             android:padding="10dp"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:inputType="textPassword"/>
 
         <Button
             android:id="@+id/login_btn"
