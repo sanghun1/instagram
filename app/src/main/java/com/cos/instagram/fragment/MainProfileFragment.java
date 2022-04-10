@@ -1,5 +1,7 @@
 package com.cos.instagram.fragment;
 
+import static java.lang.Thread.sleep;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +22,10 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.cos.instagram.MainActivity;
+import com.cos.instagram.PostImgActivity;
 import com.cos.instagram.ProfileActivity;
 import com.cos.instagram.R;
+import com.cos.instagram.SignActivity;
 import com.cos.instagram.model.FirebaseID;
 import com.cos.instagram.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,7 +36,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-public class MainProfileFragment extends Fragment {
+public class MainProfileFragment extends Fragment implements View.OnClickListener {
 
     private MainViewModel model;
 
@@ -46,11 +51,15 @@ public class MainProfileFragment extends Fragment {
     private Button profile_edit_btn;
     private SlidingUpPanelLayout slide_layout;
 
+    private LinearLayout profile_post_btn;
+
     private Context context;
 
     private FragmentTransaction transaction;
 
     private String username;
+
+    private int cnt = 0;
 
     public static MainProfileFragment newInstance() {
         return new MainProfileFragment();
@@ -86,22 +95,32 @@ public class MainProfileFragment extends Fragment {
         profile_plus_btn = (ImageButton) view.findViewById(R.id.profile_plus_btn);
         profile_edit_btn = (Button) view.findViewById(R.id.profile_edit_btn);
 
+        profile_post_btn = (LinearLayout) view.findViewById(R.id.profile_post_btn);
+
         btn_home.setOnClickListener(View -> changeFragment(homeFragment));
         btn_search.setOnClickListener(View -> changeFragment(searchFragment));
         btn_play.setOnClickListener(View -> changeFragment(playFragment));
         btn_shop.setOnClickListener(View -> changeFragment(shopFragment));
         btn_profile.setOnClickListener(View -> changeFragment(profileFragment));
 
-        profile_plus_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                slide_layout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
-            }
-        });
-
-
-
+        profile_plus_btn.setOnClickListener(this);
+        profile_post_btn.setOnClickListener(this);
         return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.profile_plus_btn:
+                slide_layout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
+                break;
+
+            case R.id.profile_post_btn:
+                startActivity(new Intent(getActivity(), PostImgActivity.class));
+                break;
+
+        }
+
     }
 
     // 버튼을 누를 경우 선택한 Fragment 변경
@@ -140,5 +159,6 @@ public class MainProfileFragment extends Fragment {
         });
 
     }
+
 
 }

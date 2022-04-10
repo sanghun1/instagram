@@ -65,7 +65,24 @@
         <entry key="..\:/Users/Master/StudioProjects/instagram/app/src/main/res/layout/activity_profile_img.xml" value="0.5" />
         <entry key="..\:/Users/Master/StudioProjects/instagram/app/src/main/res/layout/main_home_fragment.xml" value="0.39947916666666666" />
         <entry key="..\:/Users/Master/StudioProjects/instagram/app/src/main/res/layout/main_play_fragment.xml" value="0.55" />
+        <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/drawable-v24/border_edit_content_layout.xml" value="0.312" />
+        <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/drawable-v24/border_login.xml" value="0.312" />
+        <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/drawable-v24/border_login_btn.xml" value="0.312" />
+        <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/drawable-v24/border_profile_edit_layout.xml" value="0.312" />
+        <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/drawable/border_dialog_btn.xml" value="0.312" />
+        <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/drawable/border_dialog_end_btn.xml" value="0.312" />
+        <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/drawable/border_profile_btn.xml" value="0.312" />
+        <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/drawable/icon_insta_check_blue.xml" value="0.312" />
+        <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/drawable/icon_insta_left.xml" value="0.312" />
         <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/layout/activity_login.xml" value="0.2674772036474164" />
+        <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/layout/activity_post_content.xml" value="0.55" />
+        <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/layout/activity_post_img.xml" value="0.55" />
+        <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/layout/activity_profile.xml" value="0.2674772036474164" />
+        <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/layout/activity_profile_birth.xml" value="0.55" />
+        <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/layout/activity_profile_img.xml" value="0.55" />
+        <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/layout/main_home_fragment.xml" value="0.55" />
+        <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/layout/main_profile_fragment.xml" value="0.22" />
+        <entry key="..\:/Users/pmcsa/StudioProjects/instagram/app/src/main/res/layout/sign_agree_fragment.xml" value="0.55" />
         <entry key="..\:/Users/user/StudioProjects/instagram/app/src/main/res/drawable-v24/border_slid.xml" value="0.3015" />
         <entry key="..\:/Users/user/StudioProjects/instagram/app/src/main/res/drawable-v24/border_slide.xml" value="0.1255" />
         <entry key="..\:/Users/user/StudioProjects/instagram/app/src/main/res/drawable-v24/icon_place.xml" value="0.3015" />

@@ -53,6 +53,13 @@ public class MainHomeFragment extends Fragment {
         btn_shop = (ImageButton) view.findViewById(R.id.btn_shop);
         btn_profile = (ImageButton) view.findViewById(R.id.btn_profile);
 
+        view.findViewById(R.id.home_plus_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "게시물 버튼 눌림", Toast.LENGTH_LONG).show();
+            }
+        });
+
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
