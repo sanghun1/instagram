@@ -94,7 +94,7 @@ public class ProfileBirthActivity extends AppCompatActivity implements View.OnCl
         commit_dialog.findViewById(R.id.dialog_commit_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ProfileBirthActivity.this, "체크 눌림 ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileBirthActivity.this, "생일이 변경되었습니다.", Toast.LENGTH_SHORT).show();
                 user.setBirth(myBirth);
                 Intent birthIntent = new Intent(getBaseContext(), ProfileActivity.class);
                 birthIntent.putExtra("user", user);

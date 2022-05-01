@@ -105,7 +105,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                                 FirebaseID.birth, edit_birth_tv.getText().toString()
                         );
                 ((MainActivity) MainActivity.mainContext).moveNum = 1;
-                ;
+
+                Toast.makeText(ProfileActivity.this, "회원정보가 변경되었습니다.", Toast.LENGTH_SHORT).show();
                 finish();
                 startActivity(mainIntent);
             }

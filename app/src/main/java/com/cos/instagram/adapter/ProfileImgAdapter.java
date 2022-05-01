@@ -53,7 +53,6 @@ public class ProfileImgAdapter extends RecyclerView.Adapter<ProfileImgAdapter.Pr
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity, mDataset.get(holder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
                 Bitmap bmp = BitmapFactory.decodeFile(mDataset.get(holder.getAdapterPosition()));
                 ((ProfileImgActivity)ProfileImgActivity.ImgContext).imgView.setImageBitmap(bmp);
             }
