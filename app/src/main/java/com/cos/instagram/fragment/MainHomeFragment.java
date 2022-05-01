@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +18,33 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.cos.instagram.MainActivity;
+import com.cos.instagram.PostContentActivity;
 import com.cos.instagram.R;
+import com.cos.instagram.adapter.PostContentAdapter;
+import com.cos.instagram.model.FirebaseID;
+import com.cos.instagram.model.Post;
 import com.cos.instagram.model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class MainHomeFragment extends Fragment {
+
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore mStore = FirebaseFirestore.getInstance();
+
+    private PostContentAdapter mAdapter;
+    private List<Post> mDatas;
+
+    private RecyclerView rv_post;
 
     private MainViewModel model;
 
@@ -29,6 +53,9 @@ public class MainHomeFragment extends Fragment {
     private static User user;
 
     private Context context;
+
+    PostContentActivity postContent = new PostContentActivity();
+
 
     public static MainHomeFragment newInstance() {
         return new MainHomeFragment();
@@ -39,7 +66,10 @@ public class MainHomeFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_home_fragment, container, false);
 
+
+
         context = container.getContext();
+        rv_post = view.findViewById(R.id.rv_post);
 
         MainHomeFragment homeFragment = new MainHomeFragment();
         MainSearchFragment searchFragment = new MainSearchFragment();
@@ -73,6 +103,40 @@ public class MainHomeFragment extends Fragment {
         btn_profile.setOnClickListener(View -> changeFragment(profileFragment));
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mDatas = new ArrayList<>();
+
+        if(postContent.postnum == 1){
+            mStore.collection(FirebaseID.post)
+                    .orderBy(FirebaseID.postdate, Query.Direction.DESCENDING)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                            mDatas.clear();
+                            for(DocumentSnapshot snap : value.getDocuments()){
+                                Map<String, Object> shot = snap.getData();
+                                String postId = String.valueOf(shot.get(FirebaseID.postId));
+                                String username = String.valueOf(shot.get(FirebaseID.username));
+                                String contents = String.valueOf(shot.get(FirebaseID.contents));
+                                String like = String.valueOf(shot.get(FirebaseID.like));
+                                String reply = String.valueOf(shot.get(FirebaseID.reply));
+                                Post data = new Post(postId, username, contents, 0, 0);
+                                mDatas.add(data);
+                                Toast.makeText(context, String.valueOf(shot.get(FirebaseID.contents)), Toast.LENGTH_LONG).show();
+                            }
+
+                            mAdapter = new PostContentAdapter(mDatas);
+                            rv_post.setAdapter(mAdapter);
+                        }
+                    });
+            postContent.postnum = 0;
+
+        }
     }
 
     public void changeFragment(Fragment fragment) {

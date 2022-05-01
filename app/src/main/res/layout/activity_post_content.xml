@@ -22,7 +22,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/post_exit"
+                android:id="@+id/post_content_exit"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:background="@drawable/icon_insta_left" />
@@ -38,7 +38,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/gallery_commit"
+                android:id="@+id/post_content_commit"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:background="@drawable/icon_insta_check_blue" />
@@ -58,6 +58,7 @@
                 android:src="#fff"/>
 
             <EditText
+                android:id="@+id/post_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="문구 입력..."

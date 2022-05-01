@@ -14,4 +14,10 @@ public class FirebaseID {
     public static String number = "number";
     public static String info = "info";
     public static String date = "date";
+
+    public static String postId = "postId";
+    public static String contents = "contents";
+    public static String like = "like";
+    public static String reply = "reply";
+    public static String postdate = "postdate";
 }
